@@ -27,24 +27,25 @@ Building the Docker image
 -------------------------
 
 *cd* into the root directory and execute:
-     docker build --tag solum-dashboard .
+	docker build --tag solum-dashboard .
 
 Running the Docker container
 ----------------------------
 
 From anywhere, execute: 
-     docker run -d solum-dashboard
+	docker run -d solum-dashboard
 
 
 Troubleshooting
 ---------------
 
 If the docker container doesn't start, you can access its logs when you execute:
-   docker ps -a | grep solum-dashboard | head
+
+	docker ps -a | grep solum-dashboard | head
 
 it will output a line such as: 
 
-f83895823211        solum-dashboard:latest             /bin/sh -c /opt/solu   40 minutes ago      Up 40 minutes                    3030/tcp                 distracted_wright
+	f83895823211        solum-dashboard:latest             /bin/sh -c /opt/solu   40 minutes ago      Up 40 minutes                    3030/tcp                 distracted_wright
 
 The first field will be the id of the last docker container that try to run the solum-dashboard image and failed to start. You can see now its logs with:
-    docker logs [CONTAINER_ID]
+	docker logs [CONTAINER_ID]
