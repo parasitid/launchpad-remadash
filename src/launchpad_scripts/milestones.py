@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from httplib import HTTPConnection
 from urllib import urlopen
 from itertools import groupby, ifilter, ifilterfalse

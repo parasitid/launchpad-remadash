@@ -27,14 +27,15 @@ Building the Docker image
 -------------------------
 
 *cd* into the root directory and execute:
+
 	docker build --tag solum-dashboard .
 
 Running the Docker container
 ----------------------------
 
 From anywhere, execute: 
-	docker run -d solum-dashboard
 
+	docker run -d solum-dashboard
 
 Troubleshooting
 ---------------

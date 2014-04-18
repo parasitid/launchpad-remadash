@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from httplib import HTTPConnection
 from itertools import groupby, ifilter, ifilterfalse
 from launchpadlib.launchpad import Launchpad
@@ -7,6 +9,7 @@ import json
 
 CACHE_DIR = "/home/dashing/.launchpadlib/cache/"
 LAUNCHPAD = Launchpad.login_anonymously('just testing', 'production', CACHE_DIR)
+#DASHING_CONN = HTTPConnection("172.17.0.2", 3030)
 DASHING_CONN = HTTPConnection("localhost", 3030)
 
 

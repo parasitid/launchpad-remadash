@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from httplib import HTTPConnection
 from itertools import groupby, ifilter, ifilterfalse
 from launchpadlib.launchpad import Launchpad
