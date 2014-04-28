@@ -35,18 +35,28 @@ Running the Docker container
 
 From anywhere, execute: 
 
-	docker run -d solum-dashboard
+	CONTAINER_ID=$(docker run -d solum-dashboard)
+
+Then retrieve its ip:
+
+	docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER_ID
+
+And access this url from your web browser:
+
+	http://[CONTAINER_IP]:3030/solum
+
 
 Troubleshooting
 ---------------
 
 If the docker container doesn't start, you can access its logs when you execute:
 
-	docker ps -a | grep solum-dashboard | head
+	docker logs $CONTAINER_ID
+or
+	docker top $CONTAINER_ID aux
 
-it will output a line such as: 
 
-	f83895823211        solum-dashboard:latest             /bin/sh -c /opt/solu   40 minutes ago      Up 40 minutes                    3030/tcp                 distracted_wright
-
-The first field will be the id of the last docker container that try to run the solum-dashboard image and failed to start. You can see now its logs with:
-	docker logs [CONTAINER_ID]
+Another way is to log in the container via ssh. The docker build phase includes a special file name "authorized_keys" in which you can put your ssh pub key. Then try to see what is happening from the very inside of the container.
+        
+	CONTAINER_IP=$(docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER_ID)
+	ssh root@$CONTAINER_IP
