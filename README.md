@@ -53,6 +53,7 @@ If the docker container doesn't start, you can access its logs when you execute:
 
 	docker logs $CONTAINER_ID
 or
+
 	docker top $CONTAINER_ID aux
 
 
