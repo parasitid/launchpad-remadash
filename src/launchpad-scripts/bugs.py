@@ -61,7 +61,6 @@ for milestone, ibugs in groupby(sbugs, key=milestone_keyfunc):
      })
     
     print json_payload
-               
-#    (response, content) = H.request("http://localhost:3030/widgets/bugs_"+milestone,"POST", body=json_payload)
-    (response, content) = H.request("http://172.17.0.2:3030/widgets/bugs_"+milestone,"POST", body=json_payload)
+    (response, content) = H.request("http://localhost:3030/widgets/bugs_"+milestone,"POST", body=json_payload)
+
     

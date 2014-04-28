@@ -1,78 +1,50 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
-from httplib import HTTPConnection
+from httplib2 import Http
 from urllib import urlopen
 from itertools import groupby, ifilter, ifilterfalse
 from launchpadlib.launchpad import Launchpad
 
 import json
 
-
-CACHE_DIR = "/home/dashing/.launchpadlib/cache/"
+CACHE_DIR = "~/.launchpadlib/cache/"
 LAUNCHPAD = Launchpad.login_anonymously('just testing', 'production', CACHE_DIR, version="devel")
-DASHING_CONN = HTTPConnection("localhost", 3030)
+H = Http(".cache")
 
 
-def milestone_title( milestone_link ): 
+def milestone_title( spec ): 
+
+    milestone_link = spec["milestone_link"]
+
     if milestone_link:
         res = str(milestone_link)
         return res[res.rfind("/")+1:]
     else:
         return "untargeted"
 
-def bugs( project ): 
-    for task in project.searchTasks():
-        yield {
-            'milestone' : milestone_title( task.milestone ),
-            'importance' : str(task.importance),
-#            'assignee' : str(task.assignee.display_name) if task.assignee else "unassagined",
-            'status' : str(task.status)
-        }
-
-def sorted_bugs( project, keyfunc ):
-    return sorted( bugs(project), key=keyfunc)
-
-
 def retrieve_specifications_json( project ):
-    return json.loads( urlopen( project.all_specifications_collection_link).read() )
-
-
-milestone_keyfunc=(lambda bug:bug['milestone'])
-fixed_bugs_keyfunc=(lambda bug:bug['status'] == 'Fix Committed')
-
-sbugs = sorted_bugs( LAUNCHPAD.projects["solum"], milestone_keyfunc )
+    return json.loads( urlopen( project.all_specifications_collection_link).read() )["entries"]
 
 solum = LAUNCHPAD.projects["solum"] 
-specs = retrieve_specifications_json( solum )
-print len( specs["entries"])
+all_specs = retrieve_specifications_json( solum )
 
-def bugsCompletedPercentage( bugs, bug_type):
-    total = len(bugs)
-    total_for_type = len(list(ifilter(lambda b:b["importance"] == bug_type, bugs)))
-    return int((total_for_type*100)/total)
+all_sorted_specs = sorted( all_specs, key=lambda spec:milestone_title(spec))
 
-def nb_bugs_by_type( bugs, bug_type):
-    return len(list(ifilter(lambda b:b["importance"] == bug_type, bugs)))
+for milestone, ispecs in groupby(all_sorted_specs, key=(lambda spec:milestone_title(spec))):
+    specs = list(ispecs)
+    nb_of_complete_specs = len( list(ifilter( lambda spec:spec["is_complete"], specs )))
+    percentage_of_complete_specs = int(nb_of_complete_specs * 100 / len( specs ))
 
-
-
-for milestone, ibugs in groupby(sbugs, key=milestone_keyfunc):
-    bugs = list(ibugs)
-    fixed = list(ifilter( fixed_bugs_keyfunc, bugs ))
-    unfixed = list(ifilterfalse( fixed_bugs_keyfunc, bugs ))
     json_payload = json.dumps({
-        "title":"bugs " + milestone, 
-        "value": int((len(fixed)*100)/len(bugs)),
-        "high": nb_bugs_by_type( unfixed, "High"),
-        "medium":nb_bugs_by_type( unfixed, "Medium"),
-        "low":nb_bugs_by_type( unfixed, "Low"),
-        "wishlist":nb_bugs_by_type( unfixed, "Wishlist"),
-        "undecided":nb_bugs_by_type( unfixed, "Undecided"),
+        "title": milestone, 
+        "value": percentage_of_complete_specs,
+        "essential":len(list( ifilter( lambda spec:spec["priority"] == "Essential", specs ))),
+        "high":len(list( ifilter( lambda spec:spec["priority"] == "High", specs ))),
+        "medium":len(list( ifilter( lambda spec:spec["priority"] == "Medium", specs ))),
+        "low":len(list( ifilter( lambda spec:spec["priority"] == "Low", specs ))),
         "auth_token":"YOUR_AUTH_TOKEN"
      })
     
     print json_payload
-               
-#    DASHING_CONN.request("POST", "/widgets/bugs_"+milestone , json_payload)
-#    response = DASHING_CONN.getresponse()
+    (response, content) = H.request("http://localhost:3030/widgets/"+milestone,"POST", body=json_payload)
     
