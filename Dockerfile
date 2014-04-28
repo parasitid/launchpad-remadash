@@ -9,7 +9,7 @@ ADD     ./scripts/install_dashing.sh /tmp/
 RUN     /tmp/install_dashing.sh
 
 # install launchpadlib
-RUN     pip install launchpadlib
+RUN     apt-get install -y python-launchpadlib
 
 #ADD     ./scripts/install_launchpadlib.sh /tmp/
 #RUN     /tmp/install_launchpadlib.sh
