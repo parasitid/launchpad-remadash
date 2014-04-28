@@ -1,0 +1,5 @@
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# run every 2 hours
+* * * * *       /opt/solum-dashboard/launchpad-scripts/bugs.py >> /tmp/output.log 2>&1

@@ -1,17 +1,15 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
-from httplib import HTTPConnection
-from itertools import groupby, ifilter, ifilterfalse
+from httplib2 import Http
+from itertools import groupby, ifilterfalse, ifilter
 from launchpadlib.launchpad import Launchpad
 
 import json
 
 
-CACHE_DIR = "/home/dashing/.launchpadlib/cache/"
+CACHE_DIR = "~/.launchpadlib/cache/"
 LAUNCHPAD = Launchpad.login_anonymously('just testing', 'production', CACHE_DIR)
-#DASHING_CONN = HTTPConnection("172.17.0.2", 3030)
-DASHING_CONN = HTTPConnection("localhost", 3030)
-
+H = Http(".cache")
 
 def milestone_title( milestone_link ): 
     if milestone_link:
@@ -34,7 +32,6 @@ def sorted_bugs( project, keyfunc ):
 
 
 milestone_keyfunc=(lambda bug:bug['milestone'])
-fixed_bugs_keyfunc=(lambda bug:bug['status'] == 'Fix Committed')
 
 sbugs = sorted_bugs( LAUNCHPAD.projects["solum"], milestone_keyfunc )
 
@@ -50,8 +47,8 @@ def nb_bugs_by_type( bugs, bug_type):
 
 for milestone, ibugs in groupby(sbugs, key=milestone_keyfunc):
     bugs = list(ibugs)
-    fixed = list(ifilter( fixed_bugs_keyfunc, bugs ))
-    unfixed = list(ifilterfalse( fixed_bugs_keyfunc, bugs ))
+    fixed = list(ifilter( lambda bug:bug['status'] == 'Fix Committed', bugs ))
+    unfixed = list(ifilterfalse( lambda bug:bug['status'] == 'Fix Committed', bugs ))
     json_payload = json.dumps({
         "title":"bugs " + milestone, 
         "value": int((len(fixed)*100)/len(bugs)),
@@ -65,6 +62,6 @@ for milestone, ibugs in groupby(sbugs, key=milestone_keyfunc):
     
     print json_payload
                
-    DASHING_CONN.request("POST", "/widgets/bugs_"+milestone , json_payload)
-    response = DASHING_CONN.getresponse()
+#    (response, content) = H.request("http://localhost:3030/widgets/bugs_"+milestone,"POST", body=json_payload)
+    (response, content) = H.request("http://172.17.0.2:3030/widgets/bugs_"+milestone,"POST", body=json_payload)
     

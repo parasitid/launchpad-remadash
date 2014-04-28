@@ -1,2 +1,0 @@
-# run every 2 hours
-* * * * *       /opt/solum-dashboard/launchpad-scripts/bugs.py
