@@ -34,14 +34,15 @@ for milestone, ispecs in groupby(all_sorted_specs, key=(lambda spec:milestone_ti
     specs = list(ispecs)
     nb_of_complete_specs = len( list(ifilter( lambda spec:spec["is_complete"], specs )))
     percentage_of_complete_specs = int(nb_of_complete_specs * 100 / len( specs ))
+    uncomplete_specs = list(ifilterfalse( lambda spec:spec["is_complete"], specs ))
 
     json_payload = json.dumps({
         "title": milestone, 
         "value": percentage_of_complete_specs,
-        "essential":len(list( ifilter( lambda spec:spec["priority"] == "Essential", specs ))),
-        "high":len(list( ifilter( lambda spec:spec["priority"] == "High", specs ))),
-        "medium":len(list( ifilter( lambda spec:spec["priority"] == "Medium", specs ))),
-        "low":len(list( ifilter( lambda spec:spec["priority"] == "Low", specs ))),
+        "essential":len(list( ifilter( lambda spec:spec["priority"] == "Essential", uncomplete_specs ))),
+        "high":len(list( ifilter( lambda spec:spec["priority"] == "High", uncomplete_specs ))),
+        "medium":len(list( ifilter( lambda spec:spec["priority"] == "Medium", uncomplete_specs ))),
+        "low":len(list( ifilter( lambda spec:spec["priority"] == "Low", uncomplete_specs ))),
         "auth_token":"YOUR_AUTH_TOKEN"
      })
     
