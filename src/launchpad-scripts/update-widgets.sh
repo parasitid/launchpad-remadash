@@ -1,4 +1,5 @@
 #!/bin/bash
+export PROJECT_ID=$(cat /tmp/project_id)
 
 BASEDIR=$(dirname $0)
 

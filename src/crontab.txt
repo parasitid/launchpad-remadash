@@ -2,4 +2,7 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # you can schedule the periodic update here
-* * * * *       /opt/solum-dashboard/launchpad-scripts/update.sh
+* * * * *       /opt/lpprmd/launchpad-scripts/update-widgets.sh
+
+* * * * *       /opt/lpprmd/launchpad-scripts/generate-dashboards.sh
+

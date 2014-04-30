@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASEDIR=/opt/solum-dashboard
+BASEDIR=/opt/lpprmd
 
 # bundle dashing
 cd $BASEDIR/dashing

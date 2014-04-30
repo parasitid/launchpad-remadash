@@ -2,12 +2,16 @@
 
 BASEDIR=$(dirname $0)
 
+echo "PROJECT_ID is set to $PROJECT_ID" 
+echo $PROJECT_ID > /tmp/project_id
+export PROJECT_ID
+
 # start services
 /usr/sbin/cron
 /usr/sbin/sshd
 
 # install and list cron jobs installed in logs
-crontab /opt/solum-dashboard/crontab.txt
+crontab /opt/lpprmd/crontab.txt
 crontab -l
 
 # start dashing
@@ -19,7 +23,7 @@ dashing start >> /tmp/output.log 2>&1 &
 sleep 5
 
 # and perform a first update before CRON does its job
-/opt/solum-dashboard/launchpad-scripts/update.sh
+/opt/lpprmd/launchpad-scripts/update.sh
 
 echo "dashing started... tailing logs."
 tail -f /tmp/output.log

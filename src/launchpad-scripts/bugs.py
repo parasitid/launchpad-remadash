@@ -3,6 +3,7 @@
 from httplib2 import Http
 from itertools import groupby, ifilterfalse, ifilter
 from launchpadlib.launchpad import Launchpad
+from os import environ
 
 import json
 
@@ -33,7 +34,7 @@ def sorted_bugs( project, keyfunc ):
 
 milestone_keyfunc=(lambda bug:bug['milestone'])
 
-sbugs = sorted_bugs( LAUNCHPAD.projects["solum"], milestone_keyfunc )
+sbugs = sorted_bugs( LAUNCHPAD.projects[environ["PROJECT_ID"]], milestone_keyfunc )
 
 def bugsCompletedPercentage( bugs, bug_type):
     total = len(bugs)

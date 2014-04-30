@@ -4,6 +4,7 @@ from httplib2 import Http
 from urllib import urlopen
 from itertools import groupby, ifilter, ifilterfalse
 from launchpadlib.launchpad import Launchpad
+from os import environ
 
 import json
 
@@ -25,8 +26,8 @@ def milestone_title( spec ):
 def retrieve_specifications_json( project ):
     return json.loads( urlopen( project.all_specifications_collection_link).read() )["entries"]
 
-solum = LAUNCHPAD.projects["solum"] 
-all_specs = retrieve_specifications_json( solum )
+project = LAUNCHPAD.projects[environ["PROJECT_ID"]] 
+all_specs = retrieve_specifications_json( project )
 
 all_sorted_specs = sorted( all_specs, key=lambda spec:milestone_title(spec))
 

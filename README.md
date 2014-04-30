@@ -1,16 +1,16 @@
-solum-dashboard
-===============
+Launchpad Project Release Management Dashboard (LPPRMD)
+=======================================================
 
-openstack solum automated reporting, based on dashing.io &amp; launchpadlib tool
+Launchpad project release management automated dashboarding, based on dashing.io &amp; launchpadlib tool
 
-![Solum dashboard preview](./screenshot.png)
+![LPPRMD preview](./screenshot.png)
 
 Pre-requisites
 --------------
 
 With the application comes a Dockerfile so that you can easily clone this repository, build and run the docker image to get the application up and running in a Docker container.
 
-That said, if your only need is to display a solum dashboard, the only pre-requisite would be a proper "docker" install. cf: https://www.docker.io/gettingstarted/#h_installation
+That said, if your only need is to display a project dashboard, the only pre-requisite would be a proper "docker" install. cf: https://www.docker.io/gettingstarted/#h_installation
 
 Now, if you want to contribute or customize the dashboard, of course you would still need a proper "docker" installation, but to ease the development process, it's recommended to run the application locally and not in a container. The Dockerfile will provide you everything that is required to run the application from scratch. You can refer to it as a sufficient installation guide, assuming you're running an ubuntu distro.
 
@@ -30,14 +30,16 @@ Building the Docker image
 
 *cd* into the root directory and execute:
 
-	docker build --tag solum-dashboard .
+	docker build --tag lpprmd .
 
 Running the Docker container
 ----------------------------
 
+Lets say your launchpad project name is "abracadabra"
+
 From anywhere, execute: 
 
-	CONTAINER_ID=$(docker run -d solum-dashboard)
+	CONTAINER_ID=$(docker run -d -e "PROJECT_ID=abracadabra" lpprmd)
 
 Then retrieve its ip:
 
@@ -45,7 +47,7 @@ Then retrieve its ip:
 
 And access this url from your web browser:
 
-	http://[CONTAINER_IP]:3030/solum
+	http://[CONTAINER_IP]:3030/abracadabra
 
 
 Troubleshooting
