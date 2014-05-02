@@ -2,6 +2,8 @@
 
 authorized_keys
 
+src/dashing/dashboars/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
