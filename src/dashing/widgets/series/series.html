@@ -1,0 +1,23 @@
+<h1 class="title"><b data-bind="series-name"></b> series</h1>
+<h2 class="title">Active milestones: <b data-bind="active-milestones-title"></b></h2>
+
+<input class="meter" data-angleOffset=-125 data-angleArc=250 data-width=200  data-bind-value="active-progression | shortenedNumber" data-bind-data-min="min" data-bind-data-max="max">
+
+<ul id="bugs" class="list">
+  <li> Bugs: </li>
+  <li id="total">..</li>
+  <li id="high">..</li>
+</ul>
+<ul id="specs" class="list">
+  <li> Remainging Specs: </li>
+  <li id="total">..</li>
+  <li id="high">..</li>
+</ul>
+<ul id="last-release" class="list">
+  <li> Last Release: </li>
+  <li id="version">2014.1.1</li>
+  <li id="date">04/22/2014</li>
+</ul>
+
+<a id="details" href="">details</a>
+<p class="updated-at" data-bind="updatedAtMessage"></p>
