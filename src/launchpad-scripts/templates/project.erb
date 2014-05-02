@@ -1,7 +1,27 @@
+<% 
+series_ids = ENV["SERIES_IDS"].split(",").compact
+%>
+
 <div class="gridster">
   <ul>
-    <li data-row="1" data-col="1" data-sizex="3" data-sizey="1">
-      <div data-id="project_<%= ENV["PROJECT_ID"] %>" data-view="Project" data-title="Project <%=ENV["PROJECT_ID"] %>"></div>
+
+<%
+series_ids.each_index { |i|
+%>
+    <li data-row="1" data-col="<%= i+1 %>" data-sizex="1" data-sizey="1">
+      <div data-id="series_<%= series_ids[i] %>" data-view="Series" data-title="Series <%= series_ids[i] %>" data-min="0" data-max="100" data-cool="20" data-warm="90"></div>
     </li>
+<%
+}
+%>
+
+    <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+      <div data-id="milestone_untargeted %>" data-view="Milestone" data-title="Untargeted" data-min="0" data-max="100" data-cool="20" data-warm="90"></div>
+    </li>
+
+    <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+      <div data-id="bugs_untargeted" data-view="Bugs" data-title="Bugs Untargeted" data-min="0" data-max="100" data-cool="20" data-warm="90"></div>
+    </li>
+
   </ul>
 </div>
