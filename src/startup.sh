@@ -14,6 +14,11 @@ export PROJECT_ID
 crontab /opt/lpprmd/crontab.txt
 crontab -l
 
+
+# generate the dashboards
+/opt/lpprmd/launchpad-scripts/generate-dashboards.sh
+
+
 # start dashing
 cd $BASEDIR/dashing
 dashing start >> /tmp/output.log 2>&1 &
@@ -23,7 +28,7 @@ dashing start >> /tmp/output.log 2>&1 &
 sleep 5
 
 # and perform a first update before CRON does its job
-/opt/lpprmd/launchpad-scripts/update.sh
+/opt/lpprmd/launchpad-scripts/update-widgets.sh
 
 echo "dashing started... tailing logs."
 tail -f /tmp/output.log

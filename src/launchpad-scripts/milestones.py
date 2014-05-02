@@ -14,7 +14,6 @@ H = Http(".cache")
 
 
 def milestone_title( spec ): 
-
     milestone_link = spec["milestone_link"]
 
     if milestone_link:
