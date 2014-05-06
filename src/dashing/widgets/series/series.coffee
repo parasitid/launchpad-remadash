@@ -25,19 +25,19 @@ class Dashing.Series extends Dashing.Widget
         
         node = $(@node)
 
-        bugs = node.find("#bugs")
-        bugs.find("#total").text(data["remaining-bugs-total"])
-        bugs.find("#high").text("with " + data["remaining-bugs-high"] + " high.")
+        node.find("#bugs-total").text(data["remaining-bugs-total"])
+        node.find("#bugs-high").text(data["remaining-bugs-high"])
 
-        specs = node.find("#specs")
-        specs.find("#total").text(data["remaining-specs-total"])
-        specs.find("#high").text("with " + data["remaining-specs-high"] + " high.")
 
-        release = node.find("#last-release")
+        node.find("#specs-total").text(data["remaining-specs-total"])
+        node.find("#specs-high").text(data["remaining-specs-high"])
 
-        release.find("#version").text(data["last-release-version"])
-        release.find("#date").text(data["last-release-date"])
-
+        node.find("#release-version").text(data["last-release-version"])
+        try
+           node.find("#release-date").text(Date.parse(data["last-release-date"]).toLocaleDateString())
+        catch error
+           node.find("#release-date").text("not yet released").toLocaleDateString
+                
         bgColor = node.css("background-color")
 
         meter = node.find(".meter")

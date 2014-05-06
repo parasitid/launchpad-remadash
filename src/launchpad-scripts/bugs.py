@@ -12,56 +12,55 @@ CACHE_DIR = "~/.launchpadlib/cache/"
 LAUNCHPAD = Launchpad.login_anonymously('just testing', 'production', CACHE_DIR)
 H = Http(".cache")
 
-def milestone_title( milestone_link ): 
-    if milestone_link:
-        res = str(milestone_link)
-        return res[res.rfind("/")+1:]
+
+
+
+
+try:
+    PROJECT_ID = environ["PROJECT_ID"]
+except KeyError:
+    print "Please set the environment variable [PROJECT_ID]"
+    exit(1)
+
+PROJECT = LAUNCHPAD.projects[PROJECT_ID]
+ALL_TASKS = PROJECT.searchTasks()
+ALL_BUGS = filter( lambda t:t.importance != "Wishlist", ALL_TASKS )
+ALL_WISHES = filter( lambda t:t.importance == "Wishlist", ALL_TASKS )
+FOCUS_SERIES_NAME = PROJECT.development_focus.name
+
+def milestone_name( task ):
+    if task is not None and task.milestone is not None:
+        return task.milestone.name
     else:
         return "untargeted"
 
+
 def bugs( project ): 
-    for task in project.searchTasks():
-        yield {
-            'milestone' : milestone_title( task.milestone ),
-            'importance' : str(task.importance),
-#            'assignee' : str(task.assignee.display_name) if task.assignee else "unassagined",
-            'status' : str(task.status)
-        }
+    return filter( lambda t:t.importance != "Wishlist", project.searchTasks())
 
-def sorted_bugs( project, keyfunc ):
-    return sorted( bugs(project), key=keyfunc)
+def bugs_grouped_by_milestone( project ):
+    keyfunc = lambda bug:milestone_name(bug)
+    return groupby( sorted( bugs(project), key=keyfunc), key=keyfunc)
 
-
-milestone_keyfunc=(lambda bug:bug['milestone'])
-
-sbugs = sorted_bugs( LAUNCHPAD.projects[environ["PROJECT_ID"]], milestone_keyfunc )
-
-def bugsCompletedPercentage( bugs, bug_type):
-    total = len(bugs)
-    total_for_type = len(list(ifilter(lambda b:b["importance"] == bug_type, bugs)))
-    return int((total_for_type*100)/total)
 
 def nb_bugs_by_type( bugs, bug_type):
-    return len(list(ifilter(lambda b:b["importance"] == bug_type, bugs)))
+    return len(filter(lambda b:b.importance == bug_type, bugs))
 
-
-
-for milestone, ibugs in groupby(sbugs, key=milestone_keyfunc):
+for ms_name, ibugs in bugs_grouped_by_milestone( PROJECT ):
     bugs = list(ibugs)
-    fixed = list(ifilter( lambda bug:bug['status'] == 'Fix Committed', bugs ))
-    unfixed = list(ifilterfalse( lambda bug:bug['status'] == 'Fix Committed', bugs ))
+    fixed = filter( lambda bug:bug.status == 'Fix Committed', bugs )
+    unfixed = filter( lambda bug:bug.status != 'Fix Committed', bugs )
     json_payload = json.dumps({
-        "title":"bugs " + milestone, 
+        "title":"bugs " + ms_name, 
         "value": int((len(fixed)*100)/len(bugs)),
         "high": nb_bugs_by_type( unfixed, "High"),
         "medium":nb_bugs_by_type( unfixed, "Medium"),
         "low":nb_bugs_by_type( unfixed, "Low"),
-        "wishlist":nb_bugs_by_type( unfixed, "Wishlist"),
         "undecided":nb_bugs_by_type( unfixed, "Undecided"),
         "auth_token":"YOUR_AUTH_TOKEN"
      })
     
     print json_payload
-    (response, content) = H.request("http://localhost:3030/widgets/bugs_"+milestone,"POST", body=json_payload)
+    (response, content) = H.request("http://localhost:3030/widgets/bugs_"+ms_name,"POST", body=json_payload)
 
     
