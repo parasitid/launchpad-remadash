@@ -3,9 +3,11 @@
 
 <input class="meter" data-angleOffset=-125 data-angleArc=250 data-width=200  data-bind-value="active-progression | shortenedNumber" data-bind-data-min="min" data-bind-data-max="max">
 
-<p> Bugs: <b id="bugs-total">..</b> ( <b id="bugs-high">..</b> high ), 
-Remaining specs: <b id="specs-total">..</b>
-  ( <b id="specs-high">..</b> high ) </p>
-<p> Last release: <b id="release-version">..</b>, <b id="release-date">../../....</b> </p>
+<p> Bugs: <b data-bind="remaining-bugs-total">..</b> ( <b data-bind="remaining-bugs-high">..</b> high ), 
+Remaining specs: <b data-bind="remaining-specs-total">..</b>
+  ( <b data-bind="remaingin-specs-high">..</b> high ) </p>
+<p> Last
+  release: <b data-bind="last-release-version">..</b>, <b data-bind="last-release-date
+  | myDateFormat  ">../../....</b> </p>
 
 <p class="updated-at" data-bind="updatedAtMessage"></p>

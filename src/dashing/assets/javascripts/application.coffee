@@ -24,6 +24,15 @@ Dashing.on 'ready', ->
         stop: Dashing.showGridsterInstructions
         start: -> Dashing.currentWidgetPositions = Dashing.getWidgetPositions()
 
+  Batman.Filters.myDateFormat = (dateStr) ->
+        if !dateStr
+           return "not yet released"
+           
+        try
+           new Date(Date.parse(dateStr)).toLocaleDateString()
+        catch error
+           "not yet released"
+
 
 
 Dashing.compute_level = (value, cool, warm) ->
