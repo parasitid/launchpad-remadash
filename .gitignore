@@ -2,7 +2,8 @@
 
 authorized_keys
 
-src/dashing/dashboars/*
+src/dashing/dashboards/*
+src/dashing/Gemfile.lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
