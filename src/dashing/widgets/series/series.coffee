@@ -8,7 +8,22 @@ class Dashing.Series extends Dashing.Widget
                 $(@node).find(".series").val(value).trigger('change')
 
 
-  onData: (data) ->
+  ready: -> this.applyColors( $(@node) )
+
+
+  applyColors: (node) ->
+     value = parseInt @get('value')
+     cool = parseInt @get("cool")
+     warm = parseInt @get("warm")
+     level = Dashing.compute_level(value, cool, warm)
+     node.addClass "hotness#{level}"
+     meter = node.find(".meter")
+     hotnessColor = node.css("background-color")
+     meter.attr("data-bgcolor", Dashing.lightenDarkenColor(hotnessColor,-50))
+     meter.attr("data-fgcolor", Dashing.lightenDarkenColor(hotnessColor,200))
+     meter.knob()
+
+    onData: (data) ->
         ###
         data_example = {
                 series-name:"icehouse",
@@ -37,37 +52,9 @@ class Dashing.Series extends Dashing.Widget
            node.find("#release-date").text(Date.parse(data["last-release-date"]).toLocaleDateString())
         catch error
            node.find("#release-date").text("not yet released").toLocaleDateString
-                
-        bgColor = node.css("background-color")
 
-        meter = node.find(".meter")
-        meter.attr("data-bgcolor", this.lightenDarkenColor(bgColor,-50))
-        meter.attr("data-fgcolor", this.lightenDarkenColor(bgColor,200))
-        meter.knob()
+        this.applyColors( node )
 
 
 
-  lightenDarkenColor: (col, amt) ->
-     rgb = col.match(/\d+/g);
 
-     r = parseInt(rgb[0]) + amt;
-
-     if (r > 255)
-        r = 255
-     else if  (r < 0) 
-        r = 0
-
-     g = parseInt(rgb[1]) + amt
-     if (g > 255) 
-        g = 255
-     else if (g < 0) 
-        g = 0
- 
-     b = parseInt(rgb[2]) + amt
- 
-     if (b > 255) 
-        b = 255
-     else if  (b < 0) 
-        b = 0
-	 
-     "rgb("+r+", "+g+","+b+" )"

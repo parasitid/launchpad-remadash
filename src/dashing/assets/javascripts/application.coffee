@@ -23,3 +23,38 @@ Dashing.on 'ready', ->
       draggable:
         stop: Dashing.showGridsterInstructions
         start: -> Dashing.currentWidgetPositions = Dashing.getWidgetPositions()
+
+
+
+Dashing.compute_level = (value, cool, warm) ->
+      switch
+          when value <= cool then 0
+          when value >= warm then 4
+          else
+            bucketSize = (warm - cool) / 3 # Total # of colours in middle
+            Math.ceil (value - cool) / bucketSize
+
+Dashing.lightenDarkenColor = (col, amt) ->
+     rgb = col.match(/\d+/g);
+
+     r = parseInt(rgb[0]) + amt;
+
+     if (r > 255)
+        r = 255
+     else if  (r < 0) 
+        r = 0
+
+     g = parseInt(rgb[1]) + amt
+     if (g > 255) 
+        g = 255
+     else if (g < 0) 
+        g = 0
+ 
+     b = parseInt(rgb[2]) + amt
+ 
+     if (b > 255) 
+        b = 255
+     else if  (b < 0) 
+        b = 0
+	 
+     "rgb("+r+", "+g+","+b+" )"
