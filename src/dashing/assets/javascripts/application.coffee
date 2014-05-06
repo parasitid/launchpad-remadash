@@ -24,7 +24,7 @@ Dashing.on 'ready', ->
         stop: Dashing.showGridsterInstructions
         start: -> Dashing.currentWidgetPositions = Dashing.getWidgetPositions()
 
-  Batman.Filters.myDateFormat = (dateStr) ->
+  Batman.Filters.dateFormat = (dateStr) ->
         if !dateStr
            return "not yet released"
            
