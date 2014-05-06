@@ -59,12 +59,6 @@ class Dashing.Milestone extends Dashing.Widget
   onData: (data) ->
       node = $(@node)
 
-      zlist = node.find("#list")
-      zlist.find("#essential").text("Ess:" + data.essential)
-      zlist.find("#high").text("High:" + data.high)
-      zlist.find("#medium").text("Med.:" + data.medium)
-      zlist.find("#low").text("Low:" + data.low)
-
       value = parseInt data.value
       cool = parseInt node.data "cool"
       warm = parseInt node.data "warm"

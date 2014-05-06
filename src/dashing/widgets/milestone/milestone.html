@@ -1,14 +1,10 @@
 <i class="climacon icon-background"></i>
 
-<h1 class="title" data-bind="title"></h1>
+<h1 class="title">Specs <b data-bind="title"></b></h1>
 
 <input class="meter" data-angleOffset=-125 data-angleArc=250 data-width=200 data-readOnly=true data-bind-value="value | shortenedNumber" data-bind-data-min="min" data-bind-data-max="max">
 
-<ul id="list">
-<li id="essential">..</li>
-<li id="high">..</li>
-<li id="medium">..</li>
-<li id="low">..</li>
-</ul>
+<p>Ess: <b data-bind="essential">..</b>, High: <b data-bind="high">..</b>,
+  Medium: <b data-bind="medium">..</b>, Low: <b data-bind="low">..</b></p>
 
 <p class="updated-at" data-bind="updatedAtMessage"></p>

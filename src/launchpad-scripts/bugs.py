@@ -51,7 +51,7 @@ for ms_name, ibugs in bugs_grouped_by_milestone( PROJECT ):
     fixed = filter( lambda bug:bug.status == 'Fix Committed', bugs )
     unfixed = filter( lambda bug:bug.status != 'Fix Committed', bugs )
     json_payload = json.dumps({
-        "title":"bugs " + ms_name, 
+        "title": ms_name, 
         "value": int((len(fixed)*100)/len(bugs)),
         "high": nb_bugs_by_type( unfixed, "High"),
         "medium":nb_bugs_by_type( unfixed, "Medium"),

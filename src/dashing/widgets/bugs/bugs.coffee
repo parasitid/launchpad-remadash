@@ -59,13 +59,6 @@ class Dashing.Bugs extends Dashing.Widget
   onData: (data) ->
       node = $(@node)
 
-      zlist = node.find("#list")
-      zlist.find("#high").text("High:" + data.high)
-      zlist.find("#medium").text("Med.:" + data.medium)
-      zlist.find("#low").text("Low:" + data.low)
-      zlist.find("#wishlist").text("Wishlist:" + data.wishlist)
-      zlist.find("#undecided").text("Undecided:" + data.undecided)
-
       value = parseInt data.value
       cool = parseInt node.data "cool"
       warm = parseInt node.data "warm"
