@@ -5,7 +5,7 @@ class Dashing.Milestone extends Dashing.Widget
   constructor: ->
     super
     @observe 'value', (value) ->
-      $(@node).find(".milestone").val(value).trigger('change')
+      $(@node).find(".meter").val(value).trigger('change')
 
   ready: -> this.applyColors( $(@node) )
 

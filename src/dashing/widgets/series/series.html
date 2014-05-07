@@ -1,13 +1,10 @@
 <h1 class="title"><b data-bind="series-name"></b> series</h1>
 <h2 class="title">Active milestones: <b data-bind="active-milestones-title"></b></h2>
 
-<input class="meter" data-angleOffset=-125 data-angleArc=250 data-width=200  data-bind-value="active-progression | shortenedNumber" data-bind-data-min="min" data-bind-data-max="max">
-
-<p> Bugs: <b data-bind="remaining-bugs-total">..</b> ( <b data-bind="remaining-bugs-high">..</b> high ), 
-Remaining specs: <b data-bind="remaining-specs-total">..</b>
-  ( <b data-bind="remaingin-specs-high">..</b> high ) </p>
-<p> Last
-  release: <b data-bind="last-release-version">..</b>, <b data-bind="last-release-date
-  | dateFormat">../../....</b> </p>
-
+<input class="meter" data-angleOffset="-125" data-angleArc="250"
+       data-width="200" data-bind-value="value" data-bind-data-min="min" data-bind-data-max="max">
+ 
+<p>Bugs: <b data-bind="remaining-bugs-total">..</b> ( <b data-bind="remaining-bugs-high">..</b> high ),
+Remaining specs: <b data-bind="remaining-specs-total">..</b> ( <b data-bind="remaingin-specs-high">..</b> high )</p>
+<p>Last release: <b data-bind="last-release-version">..</b>, <b data-bind="last-release-date | dateFormat">../../....</b></p>
 <p class="updated-at" data-bind="updatedAtMessage"></p>

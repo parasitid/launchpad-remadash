@@ -46,6 +46,9 @@ Dashing.compute_level = (value, cool, warm) ->
 Dashing.lightenDarkenColor = (col, amt) ->
      rgb = col.match(/\d+/g);
 
+     if !rgb
+        return col
+
      r = parseInt(rgb[0]) + amt;
 
      if (r > 255)

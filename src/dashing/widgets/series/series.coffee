@@ -1,16 +1,15 @@
 class Dashing.Series extends Dashing.Widget
 
-  @accessor 'active-progression', Dashing.AnimatedValue
+  @accessor 'value', Dashing.AnimatedValue
 
   constructor: ->
         super
-        @observe 'active-progression', (value) ->
-                $(@node).find(".series").val(value).trigger('change')
-
+        @observe 'value', (value) -> $(@node).find(".meter").val(value).trigger('change')
 
   ready: -> this.applyColors( $(@node) )
 
-  onData: (data) -> this.applyColors( $(@node))
+  onData: (data) ->
+     this.applyColors( $(@node))
 
   applyColors: (node) ->
      value = parseInt @get('value')
@@ -23,10 +22,4 @@ class Dashing.Series extends Dashing.Widget
      meter.attr("data-bgcolor", Dashing.lightenDarkenColor(hotnessColor,-50))
      meter.attr("data-fgcolor", Dashing.lightenDarkenColor(hotnessColor,200))
      meter.knob()
-
-
-        
-
-
-        
 

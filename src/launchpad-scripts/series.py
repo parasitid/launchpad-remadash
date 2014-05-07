@@ -73,7 +73,7 @@ for s in PROJECT.series:
     json_payload = to_json({
         "focus": s.name == FOCUS_SERIES_NAME,
         "series-name": s.name, 
-        "active-progression": active_progression,
+        "value": active_progression,
         "active-milestones-title": " > ".join(active_milestones_names),
         "remaining-bugs-total":len(uncomplete_bugs),
         "remaining-bugs-high":len(high_uncomplete_bugs),

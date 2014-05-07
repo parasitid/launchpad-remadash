@@ -5,7 +5,7 @@ class Dashing.Bugs extends Dashing.Widget
   constructor: ->
     super
     @observe 'value', (value) ->
-      $(@node).find(".bugs").val(value).trigger('change')
+      $(@node).find(".meter").val(value).trigger('change')
 
 
   ready: -> this.applyColors( $(@node) )
