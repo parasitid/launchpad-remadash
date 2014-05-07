@@ -39,15 +39,17 @@ Lets say your launchpad project name is "abracadabra"
 
 From anywhere, execute: 
 
-	CONTAINER_ID=$(docker run -d -e "PROJECT_ID=abracadabra" lpprmd)
+	CONTAINER_ID=$(docker run -d -e "PROJECTS_IDS=project1,project2" lpprmd)
 
 Then retrieve its ip:
 
 	docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER_ID
 
-And access this url from your web browser:
+And access this urls from your web browser:
 
-	http://[CONTAINER_IP]:3030/abracadabra
+	http://[CONTAINER_IP]:3030/default
+	http://[CONTAINER_IP]:3030/project1
+	http://[CONTAINER_IP]:3030/project2
 
 
 Troubleshooting
