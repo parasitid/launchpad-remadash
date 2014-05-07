@@ -57,8 +57,11 @@ for s in PROJECT.series:
     high_uncomplete_bugs = filter( lambda b:b.importance == "High", uncomplete_bugs )
  
  
-    active_progression = int((nb_of_complete_specs * 100) / len(active_specs))
-    
+    if any(active_specs):
+        active_progression = int((nb_of_complete_specs * 100) / len(active_specs))
+    else:
+        active_progression = 0
+            
     
     releases = map(lambda m:m.release, filter(lambda m:m.release is not None ,s.all_milestones))
 
@@ -85,5 +88,7 @@ for s in PROJECT.series:
      })
     
     print json_payload
-    (response, content) = H.request("http://localhost:3030/widgets/series_"+s.name,"POST", body=json_payload)
+    H.request("http://localhost:3030/widgets/"+PROJECT_ID+"_series_"+s.name,"POST", body=json_payload)
+    if s.name == FOCUS_SERIES_NAME:
+        H.request("http://localhost:3030/widgets/"+PROJECT_ID+"_focus_series_"+s.name,"POST", body=json_payload)
    

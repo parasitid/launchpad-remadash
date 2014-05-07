@@ -64,4 +64,4 @@ for ms_name, ispecs in specs_grouped_by_milestone(PROJECT):
      })
     
     print json_payload
-    (response, content) = H.request("http://localhost:3030/widgets/milestone_"+ms_name,"POST", body=json_payload)
+    (response, content) = H.request("http://localhost:3030/widgets/"+PROJECT_ID+"_milestone_"+ms_name,"POST", body=json_payload)

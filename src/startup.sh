@@ -2,9 +2,9 @@
 
 BASEDIR=$(dirname $0)
 
-echo "PROJECT_ID is set to $PROJECT_ID" 
-echo $PROJECT_ID > /tmp/project_id
-export PROJECT_ID
+echo "PROJECTS_IDS is set to $PROJECTS_IDS" 
+echo $PROJECTS_IDS > /tmp/projects_ids
+export PROJECTS_IDS
 
 # start services
 /usr/sbin/cron

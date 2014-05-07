@@ -61,6 +61,6 @@ for ms_name, ibugs in bugs_grouped_by_milestone( PROJECT ):
      })
     
     print json_payload
-    (response, content) = H.request("http://localhost:3030/widgets/bugs_"+ms_name,"POST", body=json_payload)
+    (response, content) = H.request("http://localhost:3030/widgets/"+PROJECT_ID+"_bugs_"+ms_name,"POST", body=json_payload)
 
     
