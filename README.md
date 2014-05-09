@@ -49,13 +49,13 @@ And access this urls from your web browser:
 
 	http://[CONTAINER_IP]:3030/default
 
-        ![LPPRMD default dashboard example with projects:solum,python-solumclient,heat,nova](./docs/default-screenshot.png)
+![LPPRMD default dashboard example with projects:solum,python-solumclient,heat,nova](./docs/default-screenshot.png)
 
 
 	http://[CONTAINER_IP]:3030/project1
         http://[CONTAINER_IP]:3030/project2
 	
-        ![LPPRMD project dashboard with project solum](./docs/project-screenshot.png)
+![LPPRMD project dashboard with project solum](./docs/project-screenshot.png)
 
 
 Troubleshooting
