@@ -26,8 +26,6 @@ def milestone_name( element ):
     else:
         return "untargeted"
 
-
-
 def wishes( project ): 
     class Spec():
         pass
@@ -41,7 +39,7 @@ def wishes( project ):
        s.milestone = w.milestone
        return s
 
-    return map(to_spec, filter( lambda t:t.importance == "Wishlist", project.searchTasks()))
+    return map(to_spec, project.searchTasks(importance="Wishlist"))
 
 def specs_grouped_by_milestone( project ):
     keyfunc = lambda s:milestone_name(s)
