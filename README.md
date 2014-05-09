@@ -53,7 +53,7 @@ And access this urls from your web browser:
 
 
 	http://[CONTAINER_IP]:3030/project1
-        http://[CONTAINER_IP]:3030/project2
+	http://[CONTAINER_IP]:3030/project2
 	
 ![LPPRMD project dashboard with project solum](./docs/project-screenshot.png)
 
