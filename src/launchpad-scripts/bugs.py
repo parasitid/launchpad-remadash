@@ -12,10 +12,6 @@ CACHE_DIR = "~/.launchpadlib/cache/"
 LAUNCHPAD = Launchpad.login_anonymously('just testing', 'production', CACHE_DIR)
 H = Http(".cache")
 
-
-
-
-
 try:
     PROJECT_ID = environ["PROJECT_ID"]
 except KeyError:
@@ -33,7 +29,6 @@ def milestone_name( task ):
         return task.milestone.name
     else:
         return "untargeted"
-
 
 def bugs( project ): 
     return filter( lambda t:t.importance != "Wishlist", project.searchTasks())
