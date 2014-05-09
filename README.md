@@ -3,7 +3,7 @@ Launchpad Project Release Management Dashboard (LPPRMD)
 
 Launchpad project release management automated dashboarding, based on dashing.io &amp; launchpadlib tool
 
-![LPPRMD preview](./default-screenshot.png)
+![LPPRMD preview](./docs/default-screenshot.png)
 
 Pre-requisites
 --------------
@@ -49,13 +49,13 @@ And access this urls from your web browser:
 
 	http://[CONTAINER_IP]:3030/default
 
-        ![LPPRMD default dashboard example with projects:solum,python-solumclient,heat,nova](./default-screenshot.png)
+        ![LPPRMD default dashboard example with projects:solum,python-solumclient,heat,nova](./docs/default-screenshot.png)
 
 
 	http://[CONTAINER_IP]:3030/project1
         http://[CONTAINER_IP]:3030/project2
 	
-        ![LPPRMD project dashboard with project solum](./project-screenshot.png)
+        ![LPPRMD project dashboard with project solum](./docs/project-screenshot.png)
 
 
 Troubleshooting
