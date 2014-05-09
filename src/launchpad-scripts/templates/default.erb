@@ -10,11 +10,15 @@ focused_series_ids.each_index { |i|
     project_id, series_id = focused_series_ids[i].split(",")
 %>
     <li data-row="1" data-col="<%= i+1 %>" data-sizex="1" data-sizey="1">
-      <div data-id="<%= project_id %>_focus_series_<%= series_id %>" data-view="Series" data-title="<%= project_id%> <%= series_id %> series" data-min="0" data-max="100" data-cool="20" data-warm="90"></div>
+      <h1>Project <b><%= project_id%></b> focused series </h1>
     </li>
 
-    <li data-row="2" data-col="<%= i+1 %>" data-sizex="1" data-sizey="1">
-      <a href="/<%= project_id %>">more details on <%= project_id%> series</a>
+    <li data-row="2" data-col="<%= i+1 %>" data-sizex="1" data-sizey="2">
+      <div data-id="<%= project_id %>_focus_series_<%= series_id %>" data-view="Series" data-title="<%= series_id %>" data-min="0" data-max="100" data-cool="20" data-warm="90"></div>
+    </li>
+
+    <li data-row="4" data-col="<%= i+1 %>" data-sizex="1" data-sizey="1">
+      <a href="/<%= project_id %>">see all series</a>
     </li>
 <%
 }
