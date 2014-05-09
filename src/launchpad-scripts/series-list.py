@@ -11,7 +11,7 @@ series_sumup_func=lambda s:s.name +";"+",".join( map(lambda ms:ms.name, sorted(s
 
 try:
     PROJECT = LAUNCHPAD.projects[environ["PROJECT_ID"]]
-    print "\n".join( map(series_sumup_func, PROJECT.series))
+    print "\n".join( map(series_sumup_func, filter(lambda s:s.active, PROJECT.series)))
 except KeyError:
     print "Please set the environment variable [PROJECT_ID]"
     sys.exit(1)

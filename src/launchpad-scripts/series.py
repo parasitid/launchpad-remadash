@@ -40,7 +40,7 @@ ALL_BUGS = filter( lambda t:t.importance != "Wishlist", ALL_TASKS )
 ALL_WISHES_AS_SPECS = wishes_as_specs( ALL_TASKS )
 FOCUS_SERIES_NAME = PROJECT.development_focus.name
 
-for s in PROJECT.series:
+for s in filter(lambda s:s.active, PROJECT.series):
     active_milestones_names = map( lambda m:m.name, filter(lambda m:m.release is None, s.active_milestones) )
     active_specs = filter(lambda s: s.milestone is not None and s.milestone.name in active_milestones_names, s.all_specifications)
     active_wishes = filter(lambda w: w.milestone is not None and w.milestone.name in active_milestones_names, ALL_WISHES_AS_SPECS)
