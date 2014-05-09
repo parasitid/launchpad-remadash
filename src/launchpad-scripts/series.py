@@ -62,12 +62,9 @@ for s in filter(lambda s:s.active, PROJECT.series):
     else:
         active_progression = 0
             
-    
-    releases = map(lambda m:m.release, filter(lambda m:m.release is not None ,s.all_milestones))
-
-    if any(releases): 
-        last_release_version = releases[0].version
-        last_release_date = releases[0].date_released.isoformat()
+    if any(s.releases): 
+        last_release_version = s.releases[0].version
+        last_release_date = s.releases[0].date_released.isoformat()
     else:
         last_release_version = ""
         last_release_date = ""
