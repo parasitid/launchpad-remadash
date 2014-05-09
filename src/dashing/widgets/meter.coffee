@@ -1,10 +1,11 @@
 class Dashing.Meter extends Dashing.Widget
-  @accessor 'value', Dashing.AnimatedValue
+# @accessor 'value', Dashing.AnimatedValue
 
   constructor: ->
     super
     @observe 'value', (value) ->
       $(@node).find(".meter").val(value).trigger('change')
+ 
 
   ready: -> this.applyColors( $(@node) )
 
@@ -14,6 +15,7 @@ class Dashing.Meter extends Dashing.Widget
      warm = parseInt @get("warm")
      level = this.compute_level(value, cool, warm)
      node.addClass "hotness#{level}"
+             
      meter = node.find(".meter")
      hotnessColor = node.css("background-color")
      meter.attr("data-bgcolor", this.lightenDarkenColor(hotnessColor,-50))
